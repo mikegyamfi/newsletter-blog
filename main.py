@@ -194,7 +194,7 @@ def add_new_post():
             body=form.body.data,
             img_url=form.img_url.data,
             author=current_user,
-            date=date.today().strftime("%B %d, %Y")
+            date=form.date.data
         )
         db.session.add(new_post)
         db.session.commit()
