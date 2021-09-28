@@ -1,0 +1,31 @@
+{% include "header.html" %}
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url({{ url_for('static', filename='img/about-bg.jpg')}})">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            <h1>About Me</h1>
+            <span class="subheading">This is what I do.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <p>I am Michael, a web designer, full stack web developer and a python programmer. I design and develop websites for businesses and individuals around the globe. Websites ranging from ones with plain front end technologies to complex ones with backend technologies.</p>
+        <p>I love programming and collaborating with other programmers to do more mind-blowing projects. I am an employee of HX Engineering LLc; hardware and software company as well as a web development teaching comapny.</p>
+        <p>When you decide on developing a site for your business, just fill the <a href="{{url_for('contact')}}" >Contact Form</a> and I'll get back to you in not more than a day. Visit my <a href="http://gyamfimichael.webflow.io" >website portfolio</a> for more of my jobs.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  {% include "footer.html" %}
