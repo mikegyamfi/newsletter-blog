@@ -1,9 +1,7 @@
-from flask import Flask, render_template, redirect, url_for, flash, abort, request
+from flask import Flask, render_template, redirect, url_for, flash
 from smtplib import SMTP
 from flask_bootstrap import Bootstrap
 from flask_ckeditor import CKEditor
-from datetime import date
-from functools import wraps
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
@@ -158,29 +156,6 @@ def show_post(post_id):
 @app.route("/about")
 def about():
     return render_template("about.html", current_user=current_user)
-
-
-@app.route("/contact", methods=["GET", "POST"])
-@login_required
-def contact():
-    form = ContactForm(
-        name=current_user.name,
-        email=current_user.email
-    )
-    if form.validate_on_submit():
-        if current_user.is_authenticated:
-            username = form.name.data
-            email = form.email.data
-            phone = form.phone.data
-            message = form.message.data
-            with SMTP("smtp.gmail.com") as connection:
-                connection.starttls()
-                connection.login(user=user, password=password)
-                connection.sendmail(from_addr=user,
-                                    to_addrs="michaelgyamfi696@gmail.com",
-                                    msg=f"Subject:Contact Form Submission\n\nName:{username}\nEmail:{email}\nPhone:{phone}\nMessage:{message}")
-            return render_template("contact.html", method="post", form=form)
-    return render_template("contact.html", method="get", form=form)
 
 
 @app.route("/new-post", methods=["GET", "POST"])
