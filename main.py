@@ -7,6 +7,12 @@ from sqlalchemy.orm import relationship
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from forms import LoginForm, RegisterForm, CreatePostForm, CommentForm, ContactForm
 from flask_gravatar import Gravatar
+import os
+import re
+
+uri = os.getenv("DATABASE_URL")  # or other relevant config var
+if uri.startswith("postgres://"):
+    uri = uri.replace("postgres://", "postgresql://", 1)
 user = "codeage20@gmail.com"
 password = "#Bridgestone20"
 
@@ -17,7 +23,7 @@ Bootstrap(app)
 gravatar = Gravatar(app, size=100, rating='g', default='404', force_default=False, force_lower=False, use_ssl=False, base_url=None)
 
 ##CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 login_manager = LoginManager()
