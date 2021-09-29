@@ -155,7 +155,7 @@ def show_post(post_id):
 
 @app.route("/about")
 def about():
-    return render_template("about.html", current_user=current_user)
+    return render_template("about.html")
 
 
 @app.route("/new-post", methods=["GET", "POST"])
