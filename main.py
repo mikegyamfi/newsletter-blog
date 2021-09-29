@@ -73,7 +73,10 @@ db.create_all()
 
 @app.route('/')
 def get_all_posts():
-    posts = BlogPost.query.all()
+    posts = BlogPost.query.order_by(BlogPost.id.desc()).all()
+    for post in posts:
+        post.id = posts.index(post) + 1
+    db.session.commit()
     return render_template("index.html", all_posts=posts, current_user=current_user)
 
 
