@@ -1,5 +1,4 @@
 from flask import Flask, render_template, redirect, url_for, flash
-from smtplib import SMTP
 from flask_bootstrap import Bootstrap
 from flask_ckeditor import CKEditor
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -98,6 +97,7 @@ def register():
         db.session.add(new_user)
         db.session.commit()
         login_user(new_user)
+        flash(f"Registration Successful. Welcome {current_user.name}")
         return redirect(url_for("get_all_posts"))
 
     return render_template("register.html", form=form, current_user=current_user)
@@ -129,6 +129,7 @@ def login():
 @login_required
 def logout():
     logout_user()
+    flash("Logged out")
     return redirect(url_for('get_all_posts'))
 
 
