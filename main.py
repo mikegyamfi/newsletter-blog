@@ -155,8 +155,10 @@ def show_post(post_id):
         )
         db.session.add(new_comment)
         db.session.commit()
+    comments_for_post = requested_post.comments
+    comments_for_post.reverse()
 
-    return render_template("post.html", post=requested_post, form=form, current_user=current_user)
+    return render_template("post.html", post=requested_post, form=form, current_user=current_user, comments=comments_for_post)
 
 
 @app.route("/about")
