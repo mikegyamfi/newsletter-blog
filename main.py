@@ -10,7 +10,7 @@ from flask_gravatar import Gravatar
 import os
 import re
 
-uri = os.getenv("DATABASE_URL")  # or other relevant config var
+uri = os.getenv("DATABASE_URL", "sqlite:///blog.db")  # or other relevant config var
 if uri.startswith("postgres://"):
     uri = uri.replace("postgres://", "postgresql://", 1)
 
@@ -138,10 +138,10 @@ def logout():
     return redirect(url_for('get_all_posts'))
 
 
-@app.route("/post/<int:post_id>", methods=["GET", "POST"])
-def show_post(post_id):
+@app.route("/post/<post_title>", methods=["GET", "POST"])
+def show_post(post_title):
     form = CommentForm()
-    requested_post = BlogPost.query.get(post_id)
+    requested_post = BlogPost.query.filter_by(title=post_title).first()
 
     if form.validate_on_submit():
         if not current_user.is_authenticated:
